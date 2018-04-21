@@ -1,0 +1,5 @@
+build/
+.vscode/
+deps/boost
+deps/openssl
+test/json.hpp

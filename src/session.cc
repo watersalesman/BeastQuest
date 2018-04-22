@@ -98,7 +98,7 @@ class Session::Impl {
 
 template <typename T>
 void Session::Impl::SetUrl(T&& url) noexcept {
-  AssertIsContructible<Url, T>();
+  detail::AssertIsContructible<Url, T>();
   // Close any active connection if switching session to a new host
   if (asio_.HasOpenSocket() && !asio_.Url().CanShareConnectionWith(url)) {
     asio_.CloseSocket();
@@ -108,37 +108,37 @@ void Session::Impl::SetUrl(T&& url) noexcept {
 
 template <typename T>
 void Session::Impl::SetHeaders(T&& headers) noexcept {
-  AssertIsContructible<Headers, T>();
+  detail::AssertIsContructible<Headers, T>();
   headers_ = std::forward<T>(headers);
 }
 
 template <typename T>
 void Session::Impl::SetBody(T&& body) noexcept {
-  AssertIsContructible<Body, T>();
+  detail::AssertIsContructible<Body, T>();
   body_ = std::forward<T>(body);
 }
 
 template <typename T>
 void Session::Impl::SetParameters(T&& parameters) noexcept {
-  AssertIsContructible<Parameters, T>();
+  detail::AssertIsContructible<Parameters, T>();
   parameters_ = std::forward<T>(parameters);
 }
 
 template <typename T>
 void Session::Impl::SetSimpleForm(T&& form) noexcept {
-  AssertIsContructible<SimpleForm, T>();
+  detail::AssertIsContructible<SimpleForm, T>();
   simple_form_ = std::forward<T>(form);
 }
 
 template <typename T>
 void Session::Impl::SetMultipart(T&& multipart) noexcept {
-  AssertIsContructible<Multipart, T>();
+  detail::AssertIsContructible<Multipart, T>();
   multipart_ = std::forward<T>(multipart);
 }
 
 template <typename T>
 void Session::Impl::SetAuth(T&& basic_auth) noexcept {
-  AssertIsContructible<BasicAuth, T>();
+  detail::AssertIsContructible<BasicAuth, T>();
   basic_auth_ = std::forward<T>(basic_auth);
 }
 

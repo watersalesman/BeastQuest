@@ -5,6 +5,7 @@
 #include <sstream>
 
 namespace quest {
+namespace detail {
 
 std::string UrlEncode(const std::string& value) {
   std::ostringstream escaped;
@@ -33,4 +34,5 @@ bool CaseInsensitiveCompare::operator()(std::string lhs, std::string rhs) const
   return lhs < rhs;
 }
 
+}  // namespace detail
 }  // namespace quest

@@ -19,11 +19,11 @@ void Parameters::AddParameter(const Parameter& parameter) noexcept {
     content += "&";
   }
 
-  auto escapedKey = UrlEncode(parameter.first);
+  auto escapedKey = detail::UrlEncode(parameter.first);
   if (parameter.second.empty()) {
     content += escapedKey;
   } else {
-    auto escapedValue = UrlEncode(parameter.second);
+    auto escapedValue = detail::UrlEncode(parameter.second);
     content += escapedKey + "=" + escapedValue;
   }
 }

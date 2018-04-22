@@ -8,7 +8,7 @@
 
 namespace quest {
 // Type abstractions for common types
-using Headers = std::map<std::string, std::string, CaseInsensitiveCompare>;
+using Headers = std::map<std::string, std::string, detail::CaseInsensitiveCompare>;
 
 struct Body {
   Body() = default;

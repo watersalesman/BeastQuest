@@ -4,6 +4,7 @@
 #include <string>
 
 namespace quest {
+namespace detail {
 
 template <typename target, typename source>
 void AssertIsContructible() {
@@ -17,6 +18,7 @@ struct CaseInsensitiveCompare {
   bool operator()(std::string lhs, std::string rhs) const noexcept;
 };
 
+}  // namespace detail
 }  // namespace quest
 
 #endif  // BEASTQUEST_UTIL_HH

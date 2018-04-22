@@ -68,7 +68,6 @@ include_directories(
     ${OPENSSL_INCLUDE_DIR}
 )
 
-
 # Build BeastQuest lib
 add_subdirectory(src)
 

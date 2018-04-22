@@ -23,7 +23,7 @@ But the following features are supported!
 * GET, POST, DELETE, PUT, and PATCH requests
 * SSL/TLS requests
 * Asynchronous requests
-* Custom headers
+* Custom request headers/body
 * Url encoded parameters
 * Simple POST forms
 * Multipart POST forms

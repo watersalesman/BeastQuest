@@ -1,7 +1,7 @@
 #ifndef BEASTQUEST_RESPONSE_HH
 #define BEASTQUEST_RESPONSE_HH
 
-#include "beastquest/options.hh"
+#include "beastquest/optiontypes.hh"
 
 #include <string>
 

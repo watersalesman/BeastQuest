@@ -1,6 +1,7 @@
 #ifndef BEASTQUEST_API_HH
 #define BEASTQUEST_API_HH
 
+#include "beastquest/options.hh"
 #include "beastquest/response.hh"
 #include "beastquest/session.hh"
 
@@ -11,35 +12,35 @@ namespace quest {
 template <typename... Ts>
 Response Get(Ts&&... ts) {
   Session sess;
-  sess.SetOption(std::forward<Ts>(ts)...);
+  detail::SetOption(sess, std::forward<Ts>(ts)...);
   return sess.Get();
 }
 
 template <typename... Ts>
 Response Post(Ts&&... ts) {
   Session sess;
-  sess.SetOption(std::forward<Ts>(ts)...);
+  detail::SetOption(sess, std::forward<Ts>(ts)...);
   return sess.Post();
 }
 
 template <typename... Ts>
 Response Delete(Ts&&... ts) {
   Session sess;
-  sess.SetOption(std::forward<Ts>(ts)...);
+  detail::SetOption(sess, std::forward<Ts>(ts)...);
   return sess.Delete();
 }
 
 template <typename... Ts>
 Response Put(Ts&&... ts) {
   Session sess;
-  sess.SetOption(std::forward<Ts>(ts)...);
+  detail::SetOption(sess, std::forward<Ts>(ts)...);
   return sess.Put();
 }
 
 template <typename... Ts>
 Response Patch(Ts&&... ts) {
   Session sess;
-  sess.SetOption(std::forward<Ts>(ts)...);
+  detail::SetOption(sess, std::forward<Ts>(ts)...);
   return sess.Patch();
 }
 

@@ -2,7 +2,7 @@
 
 #include "beastquest/auth.hh"
 #include "beastquest/multipart.hh"
-#include "beastquest/options.hh"
+#include "beastquest/optiontypes.hh"
 #include "beastquest/parameters.hh"
 #include "beastquest/response.hh"
 #include "beastquest/simpleform.hh"

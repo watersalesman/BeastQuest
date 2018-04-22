@@ -1,14 +1,11 @@
 #ifndef BEASTQUEST_RESPONSE_HH
 #define BEASTQUEST_RESPONSE_HH
 
-#include "beastquest/util.hh"
+#include "beastquest/options.hh"
 
-#include <map>
 #include <string>
 
 namespace quest {
-
-using Headers = std::map<std::string, std::string, CaseInsensitiveCompare>;
 
 struct Response {
   Headers headers;

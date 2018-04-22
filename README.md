@@ -51,9 +51,8 @@ Tests use Google Test, which can be downloaded by running the following:
 ```
 git submodule update --init
 ```
-Tests can be built by specifying by specifying the build type as *Debug*. This
-can be done by passing either `-DCMAKE_BUILD_TYPE=Debug` to `cmake` on the
-command line or `set(CMAKE_BUILD_TYPE Debug)` in your `CMakeLists.txt`.
+Tests can be built by setting the CMake option `BeastQuest_BUILD_TESTS` to `ON`
+either on the command line or in your `CMakeLists.txt`.
 
 Third-Party Libraries
 ---

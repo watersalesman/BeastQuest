@@ -56,7 +56,7 @@ find_package(OpenSSL REQUIRED)
 
 add_subdirectory(src)
 
-if(CMAKE_BUILD_TYPE MATCHES Debug)
+if(BeastQuest_BUILD_TESTS)
     enable_testing()
     add_subdirectory(test)
-endif()
+endif(BeastQuest_BUILD_TESTS)

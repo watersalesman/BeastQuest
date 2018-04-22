@@ -25,8 +25,8 @@ set(BeastQuest_LIBRARIES ${PROJECT_NAME} CACHE INTERNAL "")
 
 # Set include directories
 set(BOOST_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/deps/boost/")
+set(BOOST_INCLUDEDIR "${BOOST_ROOT}")
 set(BOOST_LIBRARYDIR "${BOOST_ROOT}/build/lib")
-set(BOOST_INCLUDEDIR "${BOOST_ROOT}/build/include")
 set(OPENSSL_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/deps/openssl")
 set(OPENSSL_INCLUDE_DIR "${OPENSSL_ROOT_DIR}/include")
 set(BeastQuest_INCLUDE

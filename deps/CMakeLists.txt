@@ -15,7 +15,7 @@ if(NOT EXISTS ${BOOST_FOLDER})
     # Configure and build needed Boost components
     execute_process(COMMAND ./bootstrap.sh
     WORKING_DIRECTORY ${BOOST_FOLDER})
-    execute_process(COMMAND ./b2 install cxxflags=-fPIC variant=release link=static --prefix=./build --with-system
+    execute_process(COMMAND ./b2 stage cxxflags=-fPIC variant=release link=static --stagedir=./build --with-system
     WORKING_DIRECTORY ${BOOST_FOLDER})
 else()
     message("Boost folder exists. Skipping")

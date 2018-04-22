@@ -145,6 +145,8 @@ class Session::Impl {
   template <typename T>
   void SetHeaders(T&& headers) noexcept;
   template <typename T>
+  void SetBody(T&& body) noexcept;
+  template <typename T>
   void SetParameters(T&& parameters) noexcept;
   template <typename T>
   void SetSimpleForm(T&& form) noexcept;
@@ -166,6 +168,7 @@ class Session::Impl {
   bool verify_ssl_;
   int max_redirects_;
   Headers headers_;
+  Body body_;
   Parameters parameters_;
   SimpleForm simple_form_;
   Multipart multipart_;
@@ -190,6 +193,12 @@ template <typename T>
 void Session::Impl::SetHeaders(T&& headers) noexcept {
   AssertIsContructible<Headers, T>();
   headers_ = std::forward<T>(headers);
+}
+
+template <typename T>
+void Session::Impl::SetBody(T&& body) noexcept {
+  AssertIsContructible<Body, T>();
+  body_ = std::forward<T>(body);
 }
 
 template <typename T>
@@ -268,7 +277,6 @@ Request Session::Impl::createRequest(const Url& url, const Method& method) {
   } else if (!simple_form_.content.empty()) {
     req.set(http::field::content_type, "application/x-www-form-urlencoded");
     req.body() = simple_form_.content;
-    req.prepare_payload();
   }
 
   // Set standard headers
@@ -285,6 +293,14 @@ Request Session::Impl::createRequest(const Url& url, const Method& method) {
     for (const auto& header_pair : headers_)
       req.set(header_pair.first, header_pair.second);
   }
+
+  // Set custom body
+  if (!body_.content.empty()) {
+    req.body() = body_.content;
+  }
+
+  // Prepare headers based on body contents
+  req.prepare_payload();
 
   return req;
 }
@@ -402,6 +418,12 @@ void Session::SetHeaders(const Headers& headers) noexcept {
 
 void Session::SetHeaders(Headers&& headers) noexcept {
   pimpl_->SetHeaders(std::move(headers));
+}
+
+void Session::SetBody(const Body& body) noexcept { pimpl_->SetBody(body); }
+
+void Session::SetBody(Body&& body) noexcept {
+  pimpl_->SetBody(std::move(body));
 }
 
 void Session::SetParameters(const Parameters& parameters) noexcept {

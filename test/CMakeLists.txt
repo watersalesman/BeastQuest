@@ -18,8 +18,8 @@ set(UNIT_TESTS
     parameters-test
     simpleform-test
     multipart-test
-    api-test
     session-test
+    api-test
     ssl-test
 )
 

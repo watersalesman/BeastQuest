@@ -3,9 +3,9 @@
 
 #include "beastquest/auth.hh"
 #include "beastquest/multipart.hh"
-#include "beastquest/options.hh"
 #include "beastquest/parameters.hh"
 #include "beastquest/response.hh"
+#include "beastquest/options.hh"
 #include "beastquest/simpleform.hh"
 #include "beastquest/url.hh"
 
@@ -31,6 +31,8 @@ class Session {
   void SetUrl(Url&& url) noexcept;
   void SetHeaders(const Headers& headers) noexcept;
   void SetHeaders(Headers&& headers) noexcept;
+  void SetBody(const Body& headers) noexcept;
+  void SetBody(Body&& headers) noexcept;
   void SetParameters(const Parameters& parameters) noexcept;
   void SetParameters(Parameters&& parameters) noexcept;
   void SetSimpleForm(const SimpleForm& form) noexcept;
@@ -42,6 +44,8 @@ class Session {
   template <typename T, enableIfSameClass_t<Url, T> = false>
   void SetOption(T&& opt);
   template <typename T, enableIfSameClass_t<Headers, T> = false>
+  void SetOption(T&& opt);
+  template <typename T, enableIfSameClass_t<Body, T> = false>
   void SetOption(T&& opt);
   template <typename T, enableIfSameClass_t<Parameters, T> = false>
   void SetOption(T&& opt);
@@ -73,6 +77,11 @@ void Session::SetOption(T&& opt) {
 template <typename T, enableIfSameClass_t<Headers, T> = false>
 void Session::SetOption(T&& opt) {
   SetHeaders(std::forward<T>(opt));
+}
+
+template <typename T, enableIfSameClass_t<Body, T> = false>
+void Session::SetOption(T&& opt) {
+  SetBody(std::forward<T>(opt));
 }
 
 template <typename T, enableIfSameClass_t<Parameters, T> = false>

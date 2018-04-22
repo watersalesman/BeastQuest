@@ -67,6 +67,16 @@ TEST(OptionsTest, Headers) {
   EXPECT_TRUE(headers["Header2"] == "two");
 }
 
+TEST(OptionsTest, Body) {
+  auto res = quest::Post(quest::Url("http://httpbin.org/post"),
+                         quest::Body("Hello there"));
+  ASSERT_EQ(res.status_code, 200);
+
+  auto res_json = json::parse(res.content);
+  EXPECT_TRUE(res_json["data"] == "Hello there");
+  std::cout << res.content << std::endl;
+}
+
 TEST(OptionsTest, Parameters) {
   auto res = quest::Get(quest::Url("http://httpbin.org/get"),
                         quest::Parameters({{"k1", "v1"}, {"k2", "v2"}}));

@@ -24,10 +24,12 @@ if(BeastQuest_TEST_COVERAGE)
 endif(BeastQuest_TEST_COVERAGE)
 
 # Set compiler flags
-set(CMAKE_CXX_FLAGS "-Wall")
-set(CMAKE_CXX_FLAGS_DEBUG "-g -O0")
-set(CMAKE_CXX_FLAGS_RELEASE "-O3")
-set(CMAKE_CXX_FLAGS_COVERAGE "-g -O0 ${COVERAGE_FLAG} -fprofile-arcs -ftest-coverage")
+if(NOT WIN32)
+    set(CMAKE_CXX_FLAGS "-Wall")
+    set(CMAKE_CXX_FLAGS_DEBUG "-g -O0")
+    set(CMAKE_CXX_FLAGS_RELEASE "-O3")
+    set(CMAKE_CXX_FLAGS_COVERAGE "-g -O0 ${COVERAGE_FLAG} -fprofile-arcs -ftest-coverage")
+endif(NOT WIN32)
 
 # Set library variables
 set(BeastQuest_LIBRARIES ${PROJECT_NAME} CACHE INTERNAL "")
@@ -51,7 +53,7 @@ if(BeastQuest_BUILD_BOOST)
     set(BOOST_INCLUDEDIR "${BOOST_ROOT}")
     set(BOOST_LIBRARYDIR "${BOOST_ROOT}/build/lib")
 endif(BeastQuest_BUILD_BOOST)
-find_package(Boost COMPONENTS system REQUIRED)
+find_package(Boost COMPONENTS system date_time regex REQUIRED)
 
 # Set OpenSSL options if handling OpenSSL
 if(BeastQuest_BUILD_OPENSSL)

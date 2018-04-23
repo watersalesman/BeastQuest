@@ -1,3 +1,4 @@
+set(gtest_force_shared_crt ON CACHE INTERNAL "")
 add_subdirectory(googletest)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/unit-tests")

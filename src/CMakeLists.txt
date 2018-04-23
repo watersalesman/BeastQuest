@@ -15,11 +15,12 @@ add_library(
     url.cc
     util.cc
 )
+if(NOT WIN32)
+    set(UNIX_LIBS pthread dl stdc++)
+endif(NOT WIN32)
 target_link_libraries(
     ${PROJECT_NAME}
     ${Boost_LIBRARIES}
     ${OPENSSL_LIBRARIES}
-    pthread
-    dl
-    stdc++
+    ${UNIX_LIBS}
 )

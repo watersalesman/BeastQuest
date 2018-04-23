@@ -2,13 +2,13 @@
 if(BeastQuest_BUILD_BOOST)
     set(BOOST_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/boost")
     if(NOT EXISTS ${BOOST_FOLDER})
-        file(DOWNLOAD "https://dl.bintray.com/boostorg/beta/1.67.0.beta.1/source/boost_1_67_0_b1.tar.bz2" "${CMAKE_CURRENT_SOURCE_DIR}/boost.tar.bz2" SHOW_PROGRESS)
+        file(DOWNLOAD "https://dl.bintray.com/boostorg/beta/1.67.0.beta.1/source/boost_1_67_0_b1.7z" "${CMAKE_CURRENT_SOURCE_DIR}/boost.7z" SHOW_PROGRESS)
 
         # Decompress archive and rename folder
         message("Decompressing Boost archive...")
-        execute_process(COMMAND ${CMAKE_COMMAND} -E tar xf boost.tar.bz2
+        execute_process(COMMAND ${CMAKE_COMMAND} -E tar xf boost.7z
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
-        execute_process(COMMAND rm boost.tar.bz2
+        execute_process(COMMAND rm boost.7z
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
         execute_process(COMMAND mv boost_1_67_0 boost
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
@@ -16,7 +16,7 @@ if(BeastQuest_BUILD_BOOST)
         # Configure and build needed Boost components
         execute_process(COMMAND ./bootstrap.sh
         WORKING_DIRECTORY ${BOOST_FOLDER})
-        execute_process(COMMAND ./b2 stage cxxflags=-fPIC variant=release --stagedir=./build --with-system
+        execute_process(COMMAND ./b2 stage cxxflags=-fPIC --stagedir=./build --build-type=complete --with-system
         WORKING_DIRECTORY ${BOOST_FOLDER})
     else()
         message("Boost folder exists. Skipping")

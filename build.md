@@ -14,7 +14,7 @@
 # Build
 
 BeastQuest currently only supports Linux and OS X. This will change as I figure
-out a convenient way of handling dependencies on Windows.
+out some linking issues on Windows.
 
 ## CMake Build
 

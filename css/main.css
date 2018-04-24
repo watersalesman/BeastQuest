@@ -1,0 +1,7 @@
+ul, ol, dl {
+    margin-bottom: 0px;
+}
+
+#main_content {
+    max-width: 750px;
+}

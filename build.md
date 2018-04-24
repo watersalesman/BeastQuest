@@ -1,5 +1,5 @@
-* [Introduction](https://watersalesman.github.io/index.md)
-* [Build](https://watersalesman.github.io/build.md)
+* [Introduction](https://watersalesman.github.io/BeastQuest/index.html)
+* [Build](https://watersalesman.github.io/BeastQuest/build.html)
 
 # Build
 

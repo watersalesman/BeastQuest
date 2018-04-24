@@ -1,5 +1,5 @@
-* [Introduction](https://watersalesman.github.io/index.md)
-* [Build](https://watersalesman.github.io/build.md)
+* [Introduction](https://watersalesman.github.io/BeastQuest/index.html)
+* [Build](https://watersalesman.github.io/BeastQuest/build.html)
 
 # Introduction
 
@@ -9,8 +9,7 @@ and [Python Requests](https://github.com/requests/requests). This was largely
 created as a proof-of-concept project utilizing the [Boost Beast library](https://github.com/boostorg/beast)
 that was introduced in Boost 1.66.
 
-Features
----
+# Features
 
 Because Boost Beast only provides a protocol-level interface for HTTP, many
 features have to be implemented from scratch. The following features are not

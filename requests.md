@@ -102,6 +102,6 @@ auto res_f = quest::AsyncGet(quest::Url("https://httpbin.org/get"));
 
 // Do other work...
 
-auto response = res_f.get();
+auto response = res_f.get();    // Blocks until response is ready
 std::cout << response.content << std::endl;
 ```

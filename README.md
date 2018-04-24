@@ -43,6 +43,7 @@ Using the synchronous API. doing a GET request is as simple as:
 
 ```c++
 #include <beastquest/beastquest.hh>
+#include <iostream>
 
 int main() {
     quest::Url url("https://httpbin.org/get");

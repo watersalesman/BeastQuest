@@ -25,7 +25,7 @@ page.
 ## Response Object
 
 HTTP requests return responses with headers and a body. These responses are
-represented by the `quest::Response` struct, which is defined as shown below:
+represented by the `quest::Response` struct, which is defined like so:
 
 ```c++
 struct Response {
@@ -39,8 +39,8 @@ struct Response {
 ### Headers Object
 
 The `quest::Headers` object is effectively a [std::map](http://en.cppreference.com/w/cpp/container/map)
-of `std::string` keys and values. The only difference is that Headers is case
-insensitive. Below is the definition:
+of `std::string` keys and values. The only difference is that `quest::Headers`
+is case insensitive. Below is the definition:
 
 ```c++
 using Headers = std::map<std::string, std::string, detail::CaseInsensitiveCompare>;
@@ -80,7 +80,7 @@ res = quest::Patch(quest::Url("https://httpbin.org/patch"));
 
 ## Asynchronous Requests
 
-The asynchronous request API will wrap a standard request in a [std::async](http://en.cppreference.com/w/cpp/thread/async) 
+The asynchronous request API wraps a standard request in a [std::async](http://en.cppreference.com/w/cpp/thread/async)
 function call. It returns a `quest::AsyncResponse` which is a [std::future](http://en.cppreference.com/w/cpp/thread/future)
 of a `quest::Response` object as shown by the defintion below:
 

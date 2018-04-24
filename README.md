@@ -37,7 +37,7 @@ out a convenient way of handling dependencies on Windows.
 
 This project uses CMake, so it is as simple as cloning the repo, adding a new
 subdirectory to your CMake project, and using the provided variables:
-```
+```cmake
 # This will download and configure needed dependencies
 set(BeastQuest_BUILDS_DEPS ON)
 

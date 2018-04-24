@@ -30,6 +30,34 @@ But the following features are supported!
 * File POST upload
 * Basic authentication
 
+Usage
+---
+
+In-depth documentation and an example project are incoming! In the meantime,
+you can use the [tests](test) and [header files](include/beastquest) as a
+means of orienting yourself. Also, since this project is virtually a port of
+[C++ Request's API](https://whoshuu.github.io/cpr), the usage of this library
+should be very similar.
+
+Using the synchronous API. doing a GET request is as simple as:
+
+```c++
+#include <beastquest/beastquest.hh>
+
+int main() {
+    quest::Url url("https://httpbin.org/get");
+    auto response = quest::Get(url);
+
+    if (response.status_code == 200)
+        std::cout << response.content << std::endl;
+
+    return 0;
+}
+```
+
+The sync and async APIs are built on top of a [session-layer API](include/beastquest/session.hh)
+that also aims to be simple and easy-to-use.
+
 Build
 ---
 BeastQuest currently only supports Linux and OS X. This will change as I figure

@@ -49,13 +49,17 @@ using Headers = std::map<std::string, std::string, detail::CaseInsensitiveCompar
 Case insensitivty for headers is required by [RFC 7230](https://tools.ietf.org/html/rfc7230#section-3.2).
 Because of this, you can access headers like so:
 
+{% raw %}
+
 ```c++
-quest::Headers headers = {{"key", "value"}};
+quest::Headers headers{{"key", "value"}};
 
 std::cout << headers["key"] << std::endl;   // "value"
 std::cout << headers["Key"] << std::endl;   // "value"
 std::cout << headers["KEY"] << std::endl;   // "value"
 ```
+
+{% endraw %}
 
 ## Synchronous Requests
 

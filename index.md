@@ -1,5 +1,10 @@
 * [Introduction](https://watersalesman.github.io/BeastQuest/index.html)
+    * [Features](https://watersalesman.github.io/BeastQuest/index.html#features)
+    * [Usage](https://watersalesman.github.io/BeastQuest/index.html#usage)
+    * [Features](https://watersalesman.github.io/BeastQuest/index.html#third-party-libraries)
 * [Build](https://watersalesman.github.io/BeastQuest/build.html)
+    * [CMake Build](https://watersalesman.github.io/BeastQuest/build.html#cmake-build)
+        * [Tests](https://watersalesman.github.io/BeastQuest/build.html#tests)
 
 # Introduction
 

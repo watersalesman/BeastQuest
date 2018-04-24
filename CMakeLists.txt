@@ -13,7 +13,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Set build type to release by default
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release)
-endif()
+endif(NOT CMAKE_BUILD_TYPE)
 
 # Set compiler flags
 set(CMAKE_CXX_FLAGS "-Wall")

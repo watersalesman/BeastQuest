@@ -98,10 +98,10 @@ number of options, just like their synchronous counterparts.
 
 An example usage of `quest::AsyncGet` is shown below:
 ```c++
-auto response_future = quest::AsyncGet(quest::Url("https://httpbin.org/get"));
+auto res_f = quest::AsyncGet(quest::Url("https://httpbin.org/get"));
 
 // Do other work...
 
-auto response = response_future.get();
+auto response = res_f.get();
 std::cout << response.content << std::endl;
 ```

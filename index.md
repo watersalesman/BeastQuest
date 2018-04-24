@@ -44,7 +44,8 @@ But the following features are supported!
 
 ## Usage
 
-Using the synchronous API. doing a GET request is as simple as:
+BeastQuest aims to give a simple, no nonsense approach to sending HTTP requests.
+For example, using the synchronous API. sending a GET request is as simple as:
 
 ```c++
 #include <beastquest/beastquest.hh>
@@ -61,8 +62,8 @@ int main() {
 }
 ```
 
-The sync and async APIs are built on top of a [session-layer API](include/beastquest/session.hh)
-that also aims to be simple and easy-to-use.
+The synchronous and asynchronous APIs are built on top of a session-layer API
+that also aims to be simple and easy-to-use. More information for each can be found in the documentation.
 
 ## Third-Party Libraries
 

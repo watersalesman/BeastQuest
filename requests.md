@@ -1,16 +1,3 @@
-* [Introduction](https://watersalesman.github.io/BeastQuest/index.html)
-    * [Features](https://watersalesman.github.io/BeastQuest/index.html#features)
-    * [Usage](https://watersalesman.github.io/BeastQuest/index.html#usage)
-    * [Third-Party Libraries](https://watersalesman.github.io/BeastQuest/index.html#third-party-libraries)
-* [Build](https://watersalesman.github.io/BeastQuest/build.html)
-    * [CMake Build](https://watersalesman.github.io/BeastQuest/build.html#cmake-build)
-* [HTTP Requests](https://watersalesman.github.io/BeastQuest/requests.html)
-    * [Response Object](https://watersalesman.github.io/BeastQuest/requests.html#response-object)
-    * [Synchronous Requests](https://watersalesman.github.io/BeastQuest/requests.html#synchronous-requests)
-    * [Asynchronous Requests](https://watersalesman.github.io/BeastQuest/requests.html#asynchronous-requests)
-* [Options](https://watersalesman.github.io/BeastQuest/options.html)
-* [Session](https://watersalesman.github.io/BeastQuest/session.html)
-
 # HTTP Requests
 
 BeastQuest allows for a simple HTTP requests within C++ with a syntax similar
@@ -19,7 +6,7 @@ library. This includes standards requests as well as asynchronous requests.
 
 Options can be passed to either type of request in any order. One of these
 options should be a `quest::Url` object, so we will stick with that for now.
-For examples and a list of options, see the [Options](https://watersalesman.github.io/BeastQuest/options.html)
+For examples and a list of options, see the [Options]({{ site.baseurl }}/options.html)
 page.
 
 ## Response Object

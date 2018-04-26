@@ -1,6 +1,7 @@
 # BeastQuest
 
 [![Documentation](https://img.shields.io/badge/documentation-master-brightgreen.svg)](https://watersalesman.github.io/BeastQuest/)
+[![License](https://img.shields.io/github/license/watersalesman/BeastQuest.svg)](LICENSE)
 
 BeastQuest is an easy-to-use HTTP request library for C++ made by humans for
 humans. This library is heavily inspired by [C++ Requests](https://github.com/whoshuu/cpr)

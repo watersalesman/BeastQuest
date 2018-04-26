@@ -27,13 +27,13 @@ struct Response {
 
 The `quest::Headers` object is effectively a [std::map](http://en.cppreference.com/w/cpp/container/map)
 of `std::string` keys and values. The only difference is that `quest::Headers`
-is case insensitive. Below is the definition:
+is case-insensitive. Below is the definition:
 
 ```c++
 using Headers = std::map<std::string, std::string, detail::CaseInsensitiveCompare>;
 ```
 
-Case insensitivty for headers is required by [RFC 7230](https://tools.ietf.org/html/rfc7230#section-3.2).
+Case-insensitivty for headers is required by [RFC 7230](https://tools.ietf.org/html/rfc7230#section-3.2).
 Because of this, you can access headers like so:
 
 {% raw %}

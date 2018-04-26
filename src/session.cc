@@ -186,8 +186,10 @@ Request Session::Impl::createRequest(const Url& url, const Method& method) {
   // Create request object
   Request req{method, path, version_};
 
-  // Set Multipart or SimpleForm (but not both)
-  if (multipart_.numParts()) {
+  // Set custom body, Multipart, or SimpleForm
+  if (!body_.content.empty()) {
+    req.body() = body_.content;
+  } else if (multipart_.numParts()) {
     req.set(http::field::content_type, multipart_.ContentType());
     req.body() = multipart_.MimeForm();
   } else if (!simple_form_.content.empty()) {
@@ -208,11 +210,6 @@ Request Session::Impl::createRequest(const Url& url, const Method& method) {
   if (!headers_.empty()) {
     for (const auto& header_pair : headers_)
       req.set(header_pair.first, header_pair.second);
-  }
-
-  // Set custom body
-  if (!body_.content.empty()) {
-    req.body() = body_.content;
   }
 
   // Prepare headers based on body contents

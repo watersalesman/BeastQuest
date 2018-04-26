@@ -190,7 +190,6 @@ Request Session::Impl::createRequest(const Url& url, const Method& method) {
   if (multipart_.numParts()) {
     req.set(http::field::content_type, multipart_.ContentType());
     req.body() = multipart_.MimeForm();
-    req.prepare_payload();
   } else if (!simple_form_.content.empty()) {
     req.set(http::field::content_type, "application/x-www-form-urlencoded");
     req.body() = simple_form_.content;

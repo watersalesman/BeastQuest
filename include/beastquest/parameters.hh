@@ -14,7 +14,7 @@ struct Parameters {
   Parameters() = default;
   Parameters(const std::initializer_list<Parameter>& parameters);
 
-  void AddParameter(const Parameter& parameter) noexcept;
+  void AddParameter(Parameter parameter) noexcept;
 
   std::string content;
 };

@@ -14,17 +14,17 @@ Parameters::Parameters(const std::initializer_list<Parameter>& parameters) {
   }
 }
 
-void Parameters::AddParameter(const Parameter& parameter) noexcept {
+void Parameters::AddParameter(Parameter parameter) noexcept {
   if (!content.empty()) {
     content += "&";
   }
 
-  auto escapedKey = detail::UrlEncode(parameter.first);
+  auto escapedKey = detail::UrlEncode(std::move(parameter.first));
   if (parameter.second.empty()) {
-    content += escapedKey;
+    content += std::move(escapedKey);
   } else {
-    auto escapedValue = detail::UrlEncode(parameter.second);
-    content += escapedKey + "=" + escapedValue;
+    auto escapedValue = detail::UrlEncode(std::move(parameter.second));
+    content += std::move(escapedKey) + "=" + std::move(escapedValue);
   }
 }
 

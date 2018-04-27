@@ -14,7 +14,7 @@ struct SimpleForm {
   SimpleForm() = default;
   SimpleForm(const std::initializer_list<Field>& fields);
 
-  void AddField(const Field& field) noexcept;
+  void AddField(Field field) noexcept;
 
   std::string content;
 };

@@ -12,15 +12,15 @@ SimpleForm::SimpleForm(const std::initializer_list<Field>& fields) {
   }
 }
 
-void SimpleForm::AddField(const Field& field) noexcept {
+void SimpleForm::AddField(Field field) noexcept {
   if (!content.empty()) {
     content += "&";
   }
 
   if (field.second.empty()) {
-    content += field.first;
+    content += std::move(field.first);
   } else {
-    content += field.first + "=" + field.second;
+    content += std::move(field.first) + "=" + std::move(field.second);
   }
 }
 

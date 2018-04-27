@@ -126,10 +126,21 @@ TEST(OptionsTest, BasicAuth) {
   EXPECT_TRUE(res_json["authenticated"] == true);
 }
 
-TEST(RequestTest, MaxRedirects) {
+TEST(OptionsTest, MaxRedirects) {
   auto res = quest::Get(quest::Url("http://httpbin.org/redirect/4"),
                         quest::MaxRedirects(3));
 
   ASSERT_EQ(res.status_code, 302);
   ASSERT_EQ(res.headers["Location"], "/get");
+}
+
+
+TEST(OptionsTest, UserAgent) {
+  auto res = quest::Get(quest::Url("http://httpbin.org/headers"), quest::UserAgent("My User Agent"));
+
+  ASSERT_EQ(res.status_code, 200);
+
+  auto res_json = json::parse(res.content);
+  auto headers = res_json["headers"];
+  EXPECT_TRUE(headers["User-Agent"] == "My User Agent");
 }

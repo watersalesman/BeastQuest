@@ -23,6 +23,12 @@ struct MaxRedirects {
   int value;
 };
 
+struct UserAgent {
+  UserAgent() = default;
+  UserAgent(std::string user_agent) : content(std::move(user_agent)) {}
+  std::string content;
+};
+
 }  // namespace quest
 
 #endif  // BEASTQUEST_OPTIONTYPES_HH

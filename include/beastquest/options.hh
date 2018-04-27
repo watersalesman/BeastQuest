@@ -64,6 +64,11 @@ void SetOption(Session& sess, T&& opt) {
   sess.SetMaxRedirects(opt.value);
 }
 
+template <typename T, enableIfSameClass_t<UserAgent, T> = false>
+void SetOption(Session& sess, T&& opt) {
+  sess.SetUserAgent(opt.content);
+}
+
 // If multiple options are given, set one option, then move on to the next one
 template <typename T, typename... Ts>
 void SetOption(Session& sess, T&& opt, Ts&&... ts) {

@@ -69,6 +69,16 @@ follow infinite redirects (this is the default).
 auto res = quest::Get("https://httpbin.org/redirect/4", quest::MaxRedirects(2));
 ```
 
+### UserAgent
+
+You can specify your request's [user agent](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent)
+with `quest::UserAgent`. It can be constructed from a
+`std::string`.
+
+```c++
+auto res = quest::Get("https://httpbin.org/get", quest::UserAgent("My User Agent"));
+```
+
 ### Headers
 
 As mentioned in [Http Requests]({{ site.baseurl }}/requests.html#response-object)

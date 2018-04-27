@@ -59,6 +59,16 @@ try {
 }
 ```
 
+### MaxRedirects
+
+`quest::MaxRedirects` can be constructed from an int. This will, as the name suggests, limit the number of redirects that a request follows. Setting it to -1 will allow it to
+follow infinite redirects (this is the default).
+
+```c++
+// Will only redirect twice
+auto res = quest::Get("https://httpbin.org/redirect/4", quest::MaxRedirects(2));
+```
+
 ### Headers
 
 As mentioned in [Http Requests]({{ site.baseurl }}/requests.html#response-object)

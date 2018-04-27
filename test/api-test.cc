@@ -125,3 +125,11 @@ TEST(OptionsTest, BasicAuth) {
   auto res_json = json::parse(res.content);
   EXPECT_TRUE(res_json["authenticated"] == true);
 }
+
+TEST(RequestTest, MaxRedirects) {
+  auto res = quest::Get(quest::Url("http://httpbin.org/redirect/4"),
+                        quest::MaxRedirects(3));
+
+  ASSERT_EQ(res.status_code, 302);
+  ASSERT_EQ(res.headers["Location"], "/get");
+}

@@ -8,12 +8,19 @@
 
 namespace quest {
 // Type abstractions for common types
-using Headers = std::map<std::string, std::string, detail::CaseInsensitiveCompare>;
+using Headers =
+    std::map<std::string, std::string, detail::CaseInsensitiveCompare>;
 
 struct Body {
   Body() = default;
   Body(std::string body) : content(std::move(body)) {}
   std::string content;
+};
+
+struct MaxRedirects {
+  MaxRedirects() = default;
+  MaxRedirects(int val) : value(val) {}
+  int value;
 };
 
 }  // namespace quest

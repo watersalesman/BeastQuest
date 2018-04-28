@@ -19,11 +19,10 @@ available at the moment:
 * Streaming requests
 * Cookie support
 * Proxy support
-* SSL verification
 
 But the following features are supported!
 * GET, POST, DELETE, PUT, and PATCH requests
-* SSL/TLS requests
+* SSL/TLS requests (with or without verification)
 * Asynchronous requests
 * Custom request headers/body
 * Url encoded parameters

@@ -51,7 +51,6 @@ class Session::Impl {
       : version_(11),
         user_agent_(BOOST_BEAST_VERSION_STRING),
         keep_alive_(true),
-        verify_ssl_(true),
         max_redirects_(-1) {}
   void SetKeepAlive(bool keep_alive) noexcept;
   void SetVerifySSL(bool verify_ssl_) noexcept;
@@ -82,7 +81,6 @@ class Session::Impl {
   int version_;
   std::string user_agent_;
   bool keep_alive_;
-  bool verify_ssl_;
   int max_redirects_;
   Headers headers_;
   Body body_;
@@ -147,7 +145,7 @@ void Session::Impl::SetKeepAlive(bool keep_alive) noexcept {
 }
 
 void Session::Impl::SetVerifySSL(bool verify_ssl) noexcept {
-  verify_ssl_ = verify_ssl;
+  asio_.SetVerifySSL(verify_ssl);
 }
 
 void Session::Impl::SetMaxRedirects(int max_redirects) noexcept {

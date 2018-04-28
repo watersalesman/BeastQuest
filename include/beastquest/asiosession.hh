@@ -25,6 +25,8 @@ class AsioSession {
   void Write(Request& req);
   void Read(BeastResponse& req);
   void CloseSocket();
+  void SetVerifySSL(bool verify);
+  bool GetVerifySSL();
 
  private:
   boost::asio::io_context ioc_;
@@ -33,9 +35,10 @@ class AsioSession {
   ssl::context ctx_{ssl::context::tlsv12_client};
   std::unique_ptr<ssl::stream<tcp::socket>> ssl_stream_;
   quest::Url url_;
+  bool verify_ssl_;
 };
 
-AsioSession::AsioSession() {
+AsioSession::AsioSession() : verify_ssl_(true) {
   ctx_.set_default_verify_paths();
   ssl_stream_.reset(new ssl::stream<tcp::socket>{ioc_, ctx_});
 }
@@ -51,6 +54,12 @@ void AsioSession::Connect(const quest::Url& url) {
   auto const results = resolver_.resolve(url.host, url.port);
 
   if (url.use_ssl) {
+    // Set SSL verify mode
+    if (verify_ssl_)
+      ssl_stream_->set_verify_mode(ssl::verify_peer);
+    else
+      ssl_stream_->set_verify_mode(ssl::verify_none);
+
     // Set SNI Hostname (many hosts need this to handshake successfully)
     if (!SSL_set_tlsext_host_name(ssl_stream_->native_handle(),
                                   url.host.c_str())) {
@@ -97,6 +106,10 @@ void AsioSession::CloseSocket() {
     ssl_stream_.reset(new ssl::stream<tcp::socket>{ioc_, ctx_});
   }
 }
+
+void AsioSession::SetVerifySSL(bool verify) { verify_ssl_ = verify; }
+
+bool AsioSession::GetVerifySSL() { return verify_ssl_; }
 
 }  // namespace detail
 }  // namespace quest

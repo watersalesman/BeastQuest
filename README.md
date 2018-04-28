@@ -15,7 +15,6 @@ Because Boost Beast only provides a protocol-level interface for HTTP, many
 features have to be implemented from scratch. The following features are not
 available at the moment:
 * Timeout specification
-* Callback interface
 * Streaming requests
 * Cookie support
 * Proxy support
@@ -24,6 +23,7 @@ But the following features are supported!
 * GET, POST, DELETE, PUT, and PATCH requests
 * SSL/TLS requests (with or without verification)
 * Asynchronous requests
+* Callback interface
 * Custom request headers/body
 * Url encoded parameters
 * Simple POST forms

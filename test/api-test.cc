@@ -62,6 +62,41 @@ TEST(AsyncAPI, PATCH) {
   ASSERT_EQ(res_future.get().status_code, 200);
 }
 
+TEST(CallbackAPI, GET) {
+  auto res_status_f =
+      quest::CallbackGet([](quest::Response res) { return res.status_code; },
+                         quest::Url(hb_server + "/get"));
+  ASSERT_EQ(res_status_f.get(), 200);
+}
+
+TEST(CallbackAPI, POST) {
+  auto res_status_f =
+      quest::CallbackPost([](quest::Response res) { return res.status_code; },
+                          quest::Url(hb_server + "/post"));
+  ASSERT_EQ(res_status_f.get(), 200);
+}
+
+TEST(CallbackAPI, DELETE) {
+  auto res_status_f =
+      quest::CallbackDelete([](quest::Response res) { return res.status_code; },
+                            quest::Url(hb_server + "/delete"));
+  ASSERT_EQ(res_status_f.get(), 200);
+}
+
+TEST(CallbackAPI, PUT) {
+  auto res_status_f =
+      quest::CallbackPut([](quest::Response res) { return res.status_code; },
+                         quest::Url(hb_server + "/put"));
+  ASSERT_EQ(res_status_f.get(), 200);
+}
+
+TEST(CallbackAPI, PATCH) {
+  auto res_status_f =
+      quest::CallbackPatch([](quest::Response res) { return res.status_code; },
+                           quest::Url(hb_server + "/patch"));
+  ASSERT_EQ(res_status_f.get(), 200);
+}
+
 TEST(OptionsTest, Headers) {
   auto res =
       quest::Get(quest::Url(hb_server + "/headers"),
@@ -75,8 +110,8 @@ TEST(OptionsTest, Headers) {
 }
 
 TEST(OptionsTest, Body) {
-  auto res = quest::Post(quest::Url(hb_server + "/post"),
-                         quest::Body("Hello there"));
+  auto res =
+      quest::Post(quest::Url(hb_server + "/post"), quest::Body("Hello there"));
   ASSERT_EQ(res.status_code, 200);
 
   auto res_json = json::parse(res.content);
@@ -133,8 +168,8 @@ TEST(OptionsTest, BasicAuth) {
 }
 
 TEST(OptionsTest, MaxRedirects) {
-  auto res = quest::Get(quest::Url(hb_server + "/redirect/4"),
-                        quest::MaxRedirects(3));
+  auto res =
+      quest::Get(quest::Url(hb_server + "/redirect/4"), quest::MaxRedirects(3));
 
   ASSERT_EQ(res.status_code, 302);
   ASSERT_EQ(res.headers["Location"], "/get");

@@ -82,6 +82,62 @@ AsyncResponse AsyncPatch(Ts&&... ts) {
                     std::forward<Ts>(ts)...);
 }
 
+// Async request API w/ callbacks
+template <typename CallbackType, typename... Ts>
+auto CallbackGet(CallbackType on_request, Ts&&... ts)
+    -> std::future<decltype(on_request(Get(std::forward<Ts>(ts)...)))> {
+  return std::async(std::launch::async,
+                    [](CallbackType on_request, Ts... ts) {
+                      return on_request(Get(std::forward<Ts>(ts)...));
+                    },
+                    std::forward<CallbackType>(on_request),
+                    std::forward<Ts>(ts)...);
+}
+
+template <typename CallbackType, typename... Ts>
+auto CallbackPost(CallbackType on_request, Ts&&... ts)
+    -> std::future<decltype(on_request(Post(std::forward<Ts>(ts)...)))> {
+  return std::async(std::launch::async,
+                    [](CallbackType on_request, Ts... ts) {
+                      return on_request(Post(std::forward<Ts>(ts)...));
+                    },
+                    std::forward<CallbackType>(on_request),
+                    std::forward<Ts>(ts)...);
+}
+
+template <typename CallbackType, typename... Ts>
+auto CallbackDelete(CallbackType on_request, Ts&&... ts)
+    -> std::future<decltype(on_request(Delete(std::forward<Ts>(ts)...)))> {
+  return std::async(std::launch::async,
+                    [](CallbackType on_request, Ts... ts) {
+                      return on_request(Delete(std::forward<Ts>(ts)...));
+                    },
+                    std::forward<CallbackType>(on_request),
+                    std::forward<Ts>(ts)...);
+}
+
+template <typename CallbackType, typename... Ts>
+auto CallbackPut(CallbackType on_request, Ts&&... ts)
+    -> std::future<decltype(on_request(Put(std::forward<Ts>(ts)...)))> {
+  return std::async(std::launch::async,
+                    [](CallbackType on_request, Ts... ts) {
+                      return on_request(Put(std::forward<Ts>(ts)...));
+                    },
+                    std::forward<CallbackType>(on_request),
+                    std::forward<Ts>(ts)...);
+}
+
+template <typename CallbackType, typename... Ts>
+auto CallbackPatch(CallbackType on_request, Ts&&... ts)
+    -> std::future<decltype(on_request(Patch(std::forward<Ts>(ts)...)))> {
+  return std::async(std::launch::async,
+                    [](CallbackType on_request, Ts... ts) {
+                      return on_request(Patch(std::forward<Ts>(ts)...));
+                    },
+                    std::forward<CallbackType>(on_request),
+                    std::forward<Ts>(ts)...);
+}
+
 }  // namespace quest
 
 #endif  // BEASTQUEST_API_HH

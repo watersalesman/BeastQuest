@@ -29,6 +29,9 @@ Url::Url(const std::string& url) : use_ssl(false) {
 }
 
 bool Url::CanShareConnectionWith(const Url& rhs) const noexcept {
+  // Do not attempt to share sockets when communicating with a local server
+  if (rhs.host == "127.0.0.1" || rhs.host == "localhost") return false;
+
   if (this->host == rhs.host && this->port == rhs.port &&
       this->use_ssl == rhs.use_ssl)
     return true;

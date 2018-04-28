@@ -92,3 +92,30 @@ auto res_f = quest::AsyncGet(quest::Url("https://httpbin.org/get"));
 auto response = res_f.get();    // Blocks until response is ready
 std::cout << response.content << std::endl;
 ```
+
+## Asynchronous Callbacks
+
+BeastQuest supports passing a callback function to asynchronous requests. The
+functions for the callback interface are named `quest::Callback*method-name*`,
+e.g., `quest::CallbackGet` and `quest::CallbackPost`.
+
+You can pass any function object as long as the first parameter of that function
+object takes a `quest::Response` (or references such as `const quest::Response&`)
+. Thanks to template programming and `auto` deduction, it doesn't even matter
+what type it returns!
+
+Once the request completes, and it will pass the `quest::Response` to your
+provided callback and execute it. An example usage is shown below:
+
+```c++
+// Returns std::future of whatever your callback returns.
+// In this case, it returns a std::future<std::string>
+auto res_body_f = quest::CallbackGet([](quest::Response res){
+    return res.content;
+  }, quest::Url("https://httpbin.org/get"));
+
+// Do other work...
+
+// Blocks until ready, then prints returned std::string
+std::cout << res_body_f.get() << std::endl;
+```

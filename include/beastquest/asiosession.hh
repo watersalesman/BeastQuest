@@ -20,10 +20,10 @@ class AsioSession {
  public:
   AsioSession();
   quest::Url& Url();
-  void Write(Request& req);
-  void Read(BeastResponse& req);
   bool HasOpenSocket();
   void Connect(const quest::Url& url);
+  void Write(Request& req);
+  void Read(BeastResponse& req);
   void CloseSocket();
 
  private:
@@ -40,21 +40,6 @@ AsioSession::AsioSession() {
 }
 
 quest::Url& AsioSession::Url() { return url_; }
-
-void AsioSession::Write(Request& req) {
-  if (url_.use_ssl) {
-    http::write(*ssl_stream_, req);
-  } else
-    http::write(socket_, req);
-}
-
-void AsioSession::Read(BeastResponse& res) {
-  boost::beast::flat_buffer buffer;
-  if (url_.use_ssl)
-    http::read(*ssl_stream_, buffer, res);
-  else
-    http::read(socket_, buffer, res);
-}
 
 bool AsioSession::HasOpenSocket() {
   return socket_.is_open() || ssl_stream_->next_layer().is_open();
@@ -80,6 +65,21 @@ void AsioSession::Connect(const quest::Url& url) {
   } else {
     boost::asio::connect(socket_, results.begin(), results.end());
   }
+}
+
+void AsioSession::Write(Request& req) {
+  if (url_.use_ssl) {
+    http::write(*ssl_stream_, req);
+  } else
+    http::write(socket_, req);
+}
+
+void AsioSession::Read(BeastResponse& res) {
+  boost::beast::flat_buffer buffer;
+  if (url_.use_ssl)
+    http::read(*ssl_stream_, buffer, res);
+  else
+    http::read(socket_, buffer, res);
 }
 
 void AsioSession::CloseSocket() {

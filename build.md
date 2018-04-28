@@ -13,7 +13,7 @@ set(BeastQuest_BUILDS_DEPS ON)
 
 add_subdirectory(beastquest)
 
-include_directories(${BeastQuest_INCLUDES})
+include_directories(${BeastQuest_INCLUDEDIR})
 target_link_libraries(your_target_here ${BeastQuest_LIBRARIES})
 ```
 

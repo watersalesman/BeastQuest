@@ -36,6 +36,7 @@ class AsioSession {
 };
 
 AsioSession::AsioSession() {
+  ctx_.set_default_verify_paths();
   ssl_stream_.reset(new ssl::stream<tcp::socket>{ioc_, ctx_});
 }
 

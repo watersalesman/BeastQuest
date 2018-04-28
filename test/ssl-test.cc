@@ -19,8 +19,7 @@ TEST(SSLTest, KeepAlive) {
   sess.Get();
   auto res = sess.Get();
 
-  ASSERT_EQ(res.status_code, 200);
-  EXPECT_FALSE(res.content.empty());
+  ASSERT_EQ(res.status_code, 200); EXPECT_FALSE(res.content.empty());
 }
 
 TEST(SSLTest, KeepAliveRedirect) {
@@ -83,4 +82,14 @@ TEST(SSLTest, NoKeepAliveTwoHosts) {
 
   ASSERT_EQ(res.status_code, 200);
   EXPECT_FALSE(res.content.empty());
+}
+
+TEST(SSLTest, VerifySSL) {
+  quest::Session sess;
+  quest::Url url("https://self-signed.badssl.com/");
+  sess.SetUrl(url);
+
+  auto res = sess.Get();
+  ASSERT_EQ(res.status_code, 200);
+
 }

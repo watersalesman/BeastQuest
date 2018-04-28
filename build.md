@@ -36,3 +36,10 @@ git submodule update --init
 ```
 Tests can be built by setting the CMake option `BeastQuest_BUILD_TESTS` to `ON`
 either on the command line or in your `CMakeLists.txt`.
+
+## Example Project
+
+You can find an example project [here](https://github.com/watersalesman/BeastQuest-example)
+that builds and links against BeastQuest. It should be a good start in testing
+out the library and its build process. Feel free to fork it and mess around
+with it!

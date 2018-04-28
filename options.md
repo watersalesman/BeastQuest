@@ -59,6 +59,17 @@ try {
 }
 ```
 
+### VerifySSL
+
+`quest::VerifySSL` can be constructed from an bool. This determines whether or
+not to verify the remote host's SSL certificate with available CA certificates.
+The default is `true`.
+
+```c++
+// Will return a 200 status since it does not verify
+auto res = quest::Get("https://self-signed.badssl.com/", quest::VerifySSL(false));
+```
+
 ### MaxRedirects
 
 `quest::MaxRedirects` can be constructed from an int. This will, as the name suggests, limit the number of redirects that a request follows. Setting it to -1 will allow it to

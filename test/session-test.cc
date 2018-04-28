@@ -2,11 +2,18 @@
 #include <beastquest/session.hh>
 #include <json.hpp>
 
+#ifdef BeastQuest_LOCAL_HTTPBIN
+std::string hb_server = "http://127.0.0.1:8000";
+#endif
+#ifndef BeastQuest_LOCAL_HTTPBIN
+std::string hb_server = "http://httpbin.org";
+#endif
+
 using json = nlohmann::json;
 
 TEST(RequestTest, GET) {
   quest::Session sess;
-  quest::Url url("http://httpbin.org/get");
+  quest::Url url(hb_server + "/get");
   sess.SetUrl(url);
   auto res = sess.Get();
 
@@ -18,7 +25,7 @@ TEST(RequestTest, GET) {
 
 TEST(RequestTest, POST) {
   quest::Session sess;
-  quest::Url url("http://httpbin.org/post");
+  quest::Url url(hb_server + "/post");
   sess.SetUrl(url);
   auto res = sess.Post();
 
@@ -30,7 +37,7 @@ TEST(RequestTest, POST) {
 
 TEST(RequestTest, PUT) {
   quest::Session sess;
-  quest::Url url("http://httpbin.org/put");
+  quest::Url url(hb_server + "/put");
   sess.SetUrl(url);
   auto res = sess.Put();
 
@@ -42,7 +49,7 @@ TEST(RequestTest, PUT) {
 
 TEST(RequestTest, DELETE) {
   quest::Session sess;
-  quest::Url url("http://httpbin.org/delete");
+  quest::Url url(hb_server + "/delete");
   sess.SetUrl(url);
   auto res = sess.Delete();
 
@@ -54,7 +61,7 @@ TEST(RequestTest, DELETE) {
 
 TEST(RequestTest, PATCH) {
   quest::Session sess;
-  quest::Url url("http://httpbin.org/patch");
+  quest::Url url(hb_server + "/patch");
   sess.SetUrl(url);
   auto res = sess.Patch();
 
@@ -66,7 +73,7 @@ TEST(RequestTest, PATCH) {
 
 TEST(RequestTest, FollowRedirects) {
   quest::Session sess;
-  quest::Url url("http://httpbin.org/redirect/3");
+  quest::Url url(hb_server + "/redirect/3");
   sess.SetUrl(url);
   auto res = sess.Get();
 
@@ -76,7 +83,7 @@ TEST(RequestTest, FollowRedirects) {
 TEST(RequestTest, NoRedirects) {
   quest::Session sess;
   sess.SetMaxRedirects(0);
-  quest::Url url("http://httpbin.org/redirect/1");
+  quest::Url url(hb_server + "/redirect/1");
   sess.SetUrl(url);
   auto res = sess.Get();
 
@@ -86,7 +93,7 @@ TEST(RequestTest, NoRedirects) {
 TEST(RequestTest, MaxRedirects) {
   quest::Session sess;
   sess.SetMaxRedirects(3);
-  quest::Url url("http://httpbin.org/redirect/4");
+  quest::Url url(hb_server + "/redirect/4");
   sess.SetUrl(url);
   auto res = sess.Get();
 
@@ -97,7 +104,7 @@ TEST(RequestTest, MaxRedirects) {
 TEST(KeepAliveTest, NoKeepAlive) {
   quest::Session sess;
   sess.SetKeepAlive(false);
-  quest::Url url("http://httpbin.org/get");
+  quest::Url url(hb_server + "/get");
   sess.SetUrl(url);
   sess.Get();
   auto res = sess.Get();
@@ -109,7 +116,7 @@ TEST(KeepAliveTest, NoKeepAlive) {
 TEST(KeepAliveTest, NoKeepAliveRedirect) {
   quest::Session sess;
   sess.SetKeepAlive(false);
-  quest::Url url("http://httpbin.org/redirect/2");
+  quest::Url url(hb_server + "/redirect/2");
   sess.SetUrl(url);
   auto res = sess.Get();
 
@@ -119,7 +126,7 @@ TEST(KeepAliveTest, NoKeepAliveRedirect) {
 
 TEST(OptionsTest, CustomHeaders) {
   quest::Session sess;
-  sess.SetUrl(quest::Url("http://httpbin.org/headers"));
+  sess.SetUrl(quest::Url(hb_server + "/headers"));
   sess.SetHeaders({{"Header1", "one"}, {"Header2", "two"}});
   sess.SetUserAgent("My User Agent");
 

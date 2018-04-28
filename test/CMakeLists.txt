@@ -20,8 +20,14 @@ set(UNIT_TESTS
     multipart-test
     session-test
     api-test
-    ssl-test
 )
+
+# Don't run SSL tests on local httpbin server
+if(NOT DEFINED BeastQuest_LOCAL_HTTPBIN)
+    set(${UNIT_TESTS} "${UNIT_TESTS} ssl-test")
+else()
+    add_definitions(-DBeastQuest_LOCAL_HTTPBIN=ON)
+endif(NOT DEFINED BeastQuest_LOCAL_HTTPBIN)
 
 foreach(TEST ${UNIT_TESTS})
     add_executable(${TEST} ${TEST}.cc)

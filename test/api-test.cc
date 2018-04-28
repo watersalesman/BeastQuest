@@ -3,61 +3,68 @@
 #include <fstream>
 #include <json.hpp>
 
+#ifdef BeastQuest_LOCAL_HTTPBIN
+std::string hb_server = "http://127.0.0.1:8000";
+#endif
+#ifndef BeastQuest_LOCAL_HTTPBIN
+std::string hb_server = "http://httpbin.org";
+#endif
+
 using json = nlohmann::json;
 
 TEST(SyncAPI, GET) {
-  auto res = quest::Get(quest::Url("http://httpbin.org/get"));
+  auto res = quest::Get(quest::Url(hb_server + "/get"));
   ASSERT_EQ(res.status_code, 200);
 }
 
 TEST(SyncAPI, POST) {
-  auto res = quest::Post(quest::Url("http://httpbin.org/post"));
+  auto res = quest::Post(quest::Url(hb_server + "/post"));
   ASSERT_EQ(res.status_code, 200);
 }
 
 TEST(SyncAPI, DELETE) {
-  auto res = quest::Delete(quest::Url("http://httpbin.org/delete"));
+  auto res = quest::Delete(quest::Url(hb_server + "/delete"));
   ASSERT_EQ(res.status_code, 200);
 }
 
 TEST(SyncAPI, PUT) {
-  auto res = quest::Put(quest::Url("http://httpbin.org/put"));
+  auto res = quest::Put(quest::Url(hb_server + "/put"));
   ASSERT_EQ(res.status_code, 200);
 }
 
 TEST(SyncAPI, PATCH) {
-  auto res = quest::Patch(quest::Url("http://httpbin.org/patch"));
+  auto res = quest::Patch(quest::Url(hb_server + "/patch"));
   ASSERT_EQ(res.status_code, 200);
 }
 
 TEST(AsyncAPI, GET) {
-  auto res_future = quest::AsyncGet(quest::Url("http://httpbin.org/get"));
+  auto res_future = quest::AsyncGet(quest::Url(hb_server + "/get"));
   ASSERT_EQ(res_future.get().status_code, 200);
 }
 
 TEST(AsyncAPI, POST) {
-  auto res_future = quest::AsyncPost(quest::Url("http://httpbin.org/post"));
+  auto res_future = quest::AsyncPost(quest::Url(hb_server + "/post"));
   ASSERT_EQ(res_future.get().status_code, 200);
 }
 
 TEST(AsyncAPI, DELETE) {
-  auto res_future = quest::AsyncDelete(quest::Url("http://httpbin.org/delete"));
+  auto res_future = quest::AsyncDelete(quest::Url(hb_server + "/delete"));
   ASSERT_EQ(res_future.get().status_code, 200);
 }
 
 TEST(AsyncAPI, PUT) {
-  auto res_future = quest::AsyncPut(quest::Url("http://httpbin.org/put"));
+  auto res_future = quest::AsyncPut(quest::Url(hb_server + "/put"));
   ASSERT_EQ(res_future.get().status_code, 200);
 }
 
 TEST(AsyncAPI, PATCH) {
-  auto res_future = quest::AsyncPatch(quest::Url("http://httpbin.org/patch"));
+  auto res_future = quest::AsyncPatch(quest::Url(hb_server + "/patch"));
   ASSERT_EQ(res_future.get().status_code, 200);
 }
 
 TEST(OptionsTest, Headers) {
   auto res =
-      quest::Get(quest::Url("http://httpbin.org/headers"),
+      quest::Get(quest::Url(hb_server + "/headers"),
                  quest::Headers({{"Header1", "one"}, {"Header2", "two"}}));
   ASSERT_EQ(res.status_code, 200);
 
@@ -68,17 +75,16 @@ TEST(OptionsTest, Headers) {
 }
 
 TEST(OptionsTest, Body) {
-  auto res = quest::Post(quest::Url("http://httpbin.org/post"),
+  auto res = quest::Post(quest::Url(hb_server + "/post"),
                          quest::Body("Hello there"));
   ASSERT_EQ(res.status_code, 200);
 
   auto res_json = json::parse(res.content);
   EXPECT_TRUE(res_json["data"] == "Hello there");
-  std::cout << res.content << std::endl;
 }
 
 TEST(OptionsTest, Parameters) {
-  auto res = quest::Get(quest::Url("http://httpbin.org/get"),
+  auto res = quest::Get(quest::Url(hb_server + "/get"),
                         quest::Parameters({{"k1", "v1"}, {"k2", "v2"}}));
   ASSERT_EQ(res.status_code, 200);
 
@@ -89,7 +95,7 @@ TEST(OptionsTest, Parameters) {
 }
 
 TEST(OptionsTest, SimpleForm) {
-  auto res = quest::Post(quest::Url("http://httpbin.org/post"),
+  auto res = quest::Post(quest::Url(hb_server + "/post"),
                          quest::SimpleForm({{"k1", "v1"}, {"k2", "v2"}}));
   ASSERT_EQ(res.status_code, 200);
 
@@ -106,7 +112,7 @@ TEST(OptionsTest, Multipart) {
   outfile.close();
 
   auto res = quest::Post(
-      quest::Url("http://httpbin.org/post"),
+      quest::Url(hb_server + "/post"),
       quest::Multipart({{"test file", quest::File("test.txt")}, {"k1", "v1"}}));
   ASSERT_EQ(res.status_code, 200);
 
@@ -118,7 +124,7 @@ TEST(OptionsTest, Multipart) {
 }
 
 TEST(OptionsTest, BasicAuth) {
-  auto res = quest::Get(quest::Url("http://httpbin.org/basic-auth/user/pass"),
+  auto res = quest::Get(quest::Url(hb_server + "/basic-auth/user/pass"),
                         quest::BasicAuth("user", "pass"));
   ASSERT_EQ(res.status_code, 200);
 
@@ -127,16 +133,16 @@ TEST(OptionsTest, BasicAuth) {
 }
 
 TEST(OptionsTest, MaxRedirects) {
-  auto res = quest::Get(quest::Url("http://httpbin.org/redirect/4"),
+  auto res = quest::Get(quest::Url(hb_server + "/redirect/4"),
                         quest::MaxRedirects(3));
 
   ASSERT_EQ(res.status_code, 302);
   ASSERT_EQ(res.headers["Location"], "/get");
 }
 
-
 TEST(OptionsTest, UserAgent) {
-  auto res = quest::Get(quest::Url("http://httpbin.org/headers"), quest::UserAgent("My User Agent"));
+  auto res = quest::Get(quest::Url(hb_server + "/headers"),
+                        quest::UserAgent("My User Agent"));
 
   ASSERT_EQ(res.status_code, 200);
 

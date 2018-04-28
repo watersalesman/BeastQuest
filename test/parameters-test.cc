@@ -3,6 +3,13 @@
 #include <beastquest/session.hh>
 #include <json.hpp>
 
+#ifdef BeastQuest_LOCAL_HTTPBIN
+std::string hb_server = "http://127.0.0.1:8000";
+#endif
+#ifndef BeastQuest_LOCAL_HTTPBIN
+std::string hb_server = "http://httpbin.org";
+#endif
+
 using json = nlohmann::json;
 
 TEST(ParamTest, ParamContruction) {
@@ -20,7 +27,7 @@ TEST(ParamTest, ParamRequest) {
   quest::Parameters params = {{"k1", "v1"}, {"k2", "v2"}};
 
   quest::Session http;
-  http.SetUrl(quest::Url("http://httpbin.org/get"));
+  http.SetUrl(quest::Url(hb_server + "/get"));
   http.SetParameters(params);
 
   auto res = http.Get();

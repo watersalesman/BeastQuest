@@ -3,6 +3,13 @@
 #include <beastquest/session.hh>
 #include <json.hpp>
 
+#ifdef BeastQuest_LOCAL_HTTPBIN
+std::string hb_server = "http://127.0.0.1:8000";
+#endif
+#ifndef BeastQuest_LOCAL_HTTPBIN
+std::string hb_server = "http://httpbin.org";
+#endif
+
 using json = nlohmann::json;
 
 TEST(AuthTest, AuthEmpty) {
@@ -17,7 +24,7 @@ TEST(AuthTest, AuthRequest) {
   ASSERT_FALSE(auth.GetAuthString().empty());
 
   quest::Session http;
-  http.SetUrl(quest::Url("http://httpbin.org/basic-auth/user/pass"));
+  http.SetUrl(quest::Url(hb_server + "/basic-auth/user/pass"));
   http.SetAuth(auth);
 
   auto res = http.Get();

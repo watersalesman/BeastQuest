@@ -17,6 +17,12 @@ struct Body {
   std::string content;
 };
 
+struct VerifySSL {
+  VerifySSL() = default;
+  VerifySSL(int val) : value(val) {}
+  bool value;
+};
+
 struct MaxRedirects {
   MaxRedirects() = default;
   MaxRedirects(int val) : value(val) {}

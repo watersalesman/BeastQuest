@@ -59,6 +59,11 @@ void SetOption(Session& sess, T&& opt) {
   sess.SetAuth(std::forward<T>(opt));
 }
 
+template <typename T, enableIfSameClass_t<VerifySSL, T> = false>
+void SetOption(Session& sess, T&& opt) {
+  sess.SetVerifySSL(opt.value);
+}
+
 template <typename T, enableIfSameClass_t<MaxRedirects, T> = false>
 void SetOption(Session& sess, T&& opt) {
   sess.SetMaxRedirects(opt.value);

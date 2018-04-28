@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
+#include <beastquest/api.hh>
 #include <beastquest/session.hh>
-
 
 TEST(SSLTest, VerifySSL) {
   quest::Session sess;
@@ -9,7 +9,6 @@ TEST(SSLTest, VerifySSL) {
   sess.SetUrl(url);
 
   ASSERT_ANY_THROW(sess.Get());
-
 }
 
 TEST(SSLTest, NoVerifySSL) {
@@ -20,7 +19,18 @@ TEST(SSLTest, NoVerifySSL) {
 
   auto res = sess.Get();
   ASSERT_EQ(res.status_code, 200);
+}
 
+TEST(SSLTest, APIVerifySSL) {
+  ASSERT_ANY_THROW(quest::Get(quest::Url("https://self-signed.badssl.com/"),
+                              quest::VerifySSL(true)));
+}
+
+TEST(SSLTest, APINoVerifySSL) {
+  auto res = quest::Get(quest::Url("https://self-signed.badssl.com/"),
+                        quest::VerifySSL(false));
+
+  ASSERT_EQ(res.status_code, 200);
 }
 
 TEST(SSLTest, StandardRequest) {
@@ -41,7 +51,8 @@ TEST(SSLTest, KeepAlive) {
   sess.Get();
   auto res = sess.Get();
 
-  ASSERT_EQ(res.status_code, 200); EXPECT_FALSE(res.content.empty());
+  ASSERT_EQ(res.status_code, 200);
+  EXPECT_FALSE(res.content.empty());
 }
 
 TEST(SSLTest, KeepAliveRedirect) {

@@ -56,14 +56,14 @@ endif(BeastQuest_BUILD_OPENSSL)
 find_package(OpenSSL REQUIRED)
 
 # Set include directories
-set(BeastQuest_INCLUDE
+set(BeastQuest_INCLUDEDIR
   "${CMAKE_CURRENT_SOURCE_DIR}/include"
   CACHE
   INTERNAL
   ""
 )
 include_directories(
-    ${BeastQuest_INCLUDE}
+    ${BeastQuest_INCLUDEDIR}
     ${BOOST_INCLUDEDIR}
     ${OPENSSL_INCLUDE_DIR}
 )

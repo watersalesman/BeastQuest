@@ -8,7 +8,7 @@ endif(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/json.hpp")
 
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}
-    ${BeastQuest_INCLUDES}
+    ${BeastQuest_INCLUDEDIR}
 )
 
 set(UNIT_TESTS

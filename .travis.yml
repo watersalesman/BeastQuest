@@ -1,0 +1,41 @@
+matrix:
+    include:
+        - os: linux
+          language: cpp
+          env:
+              - MATRIX_EVAL="export CXX=g++-5"
+          addons:
+              apt:
+                  sources:
+                      - ubuntu-toolchain-r-test
+                  packages:
+                      - g++-5
+        - os: linux
+          language: cpp
+          env:
+              - MATRIX_EVAL="export CXX=clang++-4.0"
+          addons:
+              apt:
+                  sources:
+                      - llvm-toolchain-trusty-4.0
+                      - ubuntu-toolchain-r-test
+                  packages:
+                      - clang-4.0
+                      - g++-5
+        - os: osx
+          language: cpp
+
+before_install:
+  - test -n $CXX && unset CXX
+  - eval "${MATRIX_EVAL}"
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then pip install --user gunicorn httpbin; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew upgrade python; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then pip3 install --user gunicorn httpbin; fi
+
+script:
+    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then ~/.local/bin/gunicorn httpbin:app; fi &
+    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then ~/Library/Python/3.6/bin/gunicorn httpbin:app; fi &
+    - mkdir build && cd build
+    - cmake .. -DBeastQuest_BUILD_DEPS=ON -DBeastQuest_BUILD_TESTS=ON -DBeastQuest_LOCAL_HTTPBIN=ON
+    - make -j2
+    - ctest --output-on-failure

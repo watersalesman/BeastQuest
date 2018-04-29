@@ -1,6 +1,7 @@
 #include "beastquest/util.hh"
 
 #include <boost/algorithm/string.hpp>
+#include <cctype>
 #include <iomanip>
 #include <sstream>
 

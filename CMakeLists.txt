@@ -15,19 +15,17 @@ if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release)
 endif(NOT CMAKE_BUILD_TYPE)
 
+# Enable warnings
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
+
 # Generate code coverage
 if(BeastQuest_TEST_COVERAGE)
     set(CMAKE_BUILD_TYPE COVERAGE)
     if(NOT "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
         set(COVERAGE_FLAG "--coverage")
     endif(NOT "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+    set(CMAKE_CXX_FLAGS_COVERAGE "-g -O0 ${COVERAGE_FLAG} -fprofile-arcs -ftest-coverage")
 endif(BeastQuest_TEST_COVERAGE)
-
-# Set compiler flags
-set(CMAKE_CXX_FLAGS "-Wall")
-set(CMAKE_CXX_FLAGS_DEBUG "-g -O0")
-set(CMAKE_CXX_FLAGS_RELEASE "-O3")
-set(CMAKE_CXX_FLAGS_COVERAGE "-g -O0 ${COVERAGE_FLAG} -fprofile-arcs -ftest-coverage")
 
 # Set library variables
 set(BeastQuest_LIBRARIES ${PROJECT_NAME} CACHE INTERNAL "")

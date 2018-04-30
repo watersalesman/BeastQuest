@@ -33,9 +33,10 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then pip3 install --user gunicorn httpbin; fi
 
 script:
-    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then ~/.local/bin/gunicorn httpbin:app; fi &
-    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then ~/Library/Python/3.6/bin/gunicorn httpbin:app; fi &
+    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then gunicorn httpbin:app; fi &
+    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then gunicorn httpbin:app; fi &
     - mkdir build && cd build
     - cmake .. -DBeastQuest_BUILD_DEPS=ON -DBeastQuest_BUILD_TESTS=ON -DBeastQuest_LOCAL_HTTPBIN=ON
     - make -j2
     - ctest --output-on-failure
+    - cd .. && coveralls -i 'src' -i 'include' -e 'deps' --gcov-options '\-lp'

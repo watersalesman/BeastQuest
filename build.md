@@ -38,8 +38,10 @@ Tests can be built by setting the CMake option `BeastQuest_BUILD_TESTS` to `ON`
 either on the command line or in your `CMakeLists.txt`.
 
 If you wish to use a local [httpbin server](https://httpbin.org/)
-for tests, you can define the `BeastQuest_LOCAL_HTTPBIN` CMake variable. Note
+for tests, you can set the `BeastQuest_LOCAL_HTTPBIN` CMake variable. Note
 that SSL tests will not be run in this case.
+
+You can generate code coverage by setting the `BeastQuest_TEST_COVERAGE` CMake variable.
 
 ## Example Project
 

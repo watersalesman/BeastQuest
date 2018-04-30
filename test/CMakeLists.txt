@@ -23,14 +23,14 @@ set(UNIT_TESTS
 )
 
 # Don't run SSL tests on local httpbin server
-if(NOT DEFINED BeastQuest_LOCAL_HTTPBIN)
+if(NOT BeastQuest_LOCAL_HTTPBIN)
     set(UNIT_TESTS
-    ${UNIT_TESTS}
-    ssl-test
+        ${UNIT_TESTS}
+        ssl-test
     )
 else()
     add_definitions(-DBeastQuest_LOCAL_HTTPBIN=ON)
-endif(NOT DEFINED BeastQuest_LOCAL_HTTPBIN)
+endif(NOT BeastQuest_LOCAL_HTTPBIN)
 
 foreach(TEST ${UNIT_TESTS})
     add_executable(${TEST} ${TEST}.cc)

@@ -17,8 +17,11 @@ endif(NOT CMAKE_BUILD_TYPE)
 
 # Set compiler flags
 set(CMAKE_CXX_FLAGS "-Wall")
-set(CMAKE_CXX_FLAGS_DEBUG "-g")
+set(CMAKE_CXX_FLAGS_DEBUG "-g -O0")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
+if(BeastQuest_TEST_COVERAGE)
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fprofile-arcs -ftest-coverage --coverage")
+endif(BeastQuest_TEST_COVERAGE)
 
 # Set library variables
 set(BeastQuest_LIBRARIES ${PROJECT_NAME} CACHE INTERNAL "")

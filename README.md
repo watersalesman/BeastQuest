@@ -3,6 +3,7 @@
 [![Travis CI](https://travis-ci.org/watersalesman/BeastQuest.svg?branch=master)](https://travis-ci.org/watersalesman/BeastQuest)
 [![Documentation](https://img.shields.io/badge/documentation-master-brightgreen.svg)](https://watersalesman.github.io/BeastQuest/)
 [![License](https://img.shields.io/github/license/watersalesman/BeastQuest.svg)](LICENSE)
+[![Coverage Status](https://coveralls.io/repos/github/watersalesman/BeastQuest/badge.svg)](https://coveralls.io/github/watersalesman/BeastQuest)
 
 BeastQuest is an easy-to-use HTTP request library for C++ made by humans for
 humans. This library is heavily inspired by [C++ Requests](https://github.com/whoshuu/cpr)

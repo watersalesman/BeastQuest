@@ -1,3 +1,4 @@
+cache: ccache
 matrix:
     include:
         - os: linux
@@ -28,14 +29,16 @@ matrix:
 before_install:
   - test -n $CXX && unset CXX
   - eval "${MATRIX_EVAL}"
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then pip install --user flask==1.0 gunicorn httpbin; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then pip install --user flask==1.0 gunicorn httpbin cpp-coveralls; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew upgrade python; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then pip3 install --user flask==1.0 gunicorn httpbin; fi
 
 script:
-    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then ~/.local/bin/gunicorn httpbin:app; fi &
+    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then gunicorn httpbin:app; fi &
     - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then ~/Library/Python/3.6/bin/gunicorn httpbin:app; fi &
     - mkdir build && cd build
-    - cmake .. -DBeastQuest_BUILD_DEPS=ON -DBeastQuest_BUILD_TESTS=ON -DBeastQuest_LOCAL_HTTPBIN=ON
+    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then cmake .. -DBeastQuest_BUILD_DEPS=ON -DBeastQuest_BUILD_TESTS=ON -DBeastQuest_LOCAL_HTTPBIN=ON -DBeastQuest_TEST_COVERAGE=ON; fi
+    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then cmake .. -DBeastQuest_BUILD_DEPS=ON -DBeastQuest_BUILD_TESTS=ON -DBeastQuest_LOCAL_HTTPBIN=ON; fi
     - make -j2
     - ctest --output-on-failure
+    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then coveralls --verbose -i 'src' -i 'include' --root "../" --gcov-options '\-lp' --gcov 'gcov-5'; fi

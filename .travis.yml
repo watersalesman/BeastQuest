@@ -35,7 +35,7 @@ before_install:
 
 script:
     - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then gunicorn httpbin:app; fi &
-    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then ~/Library/Python/3.6/bin/gunicorn httpbin:app; fi &
+    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then ~/Library/Python/3.7/bin/gunicorn httpbin:app; fi &
     - mkdir build && cd build
     - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then cmake .. -DBeastQuest_BUILD_DEPS=ON -DBeastQuest_BUILD_TESTS=ON -DBeastQuest_LOCAL_HTTPBIN=ON -DBeastQuest_TEST_COVERAGE=ON; fi
     - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then cmake .. -DBeastQuest_BUILD_DEPS=ON -DBeastQuest_BUILD_TESTS=ON -DBeastQuest_LOCAL_HTTPBIN=ON; fi

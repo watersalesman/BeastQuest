@@ -29,13 +29,13 @@ matrix:
 before_install:
   - test -n $CXX && unset CXX
   - eval "${MATRIX_EVAL}"
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then pip install --user flask==1.0 gunicorn httpbin cpp-coveralls; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then pip install --user flask httpbin cpp-coveralls; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew upgrade python; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then pip3 install --user flask==1.0 gunicorn httpbin; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then pip3 install --user flask httpbin; fi
 
 script:
-    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then gunicorn httpbin:app; fi &
-    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then ~/Library/Python/3.7/bin/gunicorn httpbin:app; fi &
+    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then python -m httpbin.core --port 8000; fi &
+    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then python3 -m httpbin.core --port 8000; fi &
     - mkdir build && cd build
     - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then cmake .. -DBeastQuest_BUILD_DEPS=ON -DBeastQuest_BUILD_TESTS=ON -DBeastQuest_LOCAL_HTTPBIN=ON -DBeastQuest_TEST_COVERAGE=ON; fi
     - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then cmake .. -DBeastQuest_BUILD_DEPS=ON -DBeastQuest_BUILD_TESTS=ON -DBeastQuest_LOCAL_HTTPBIN=ON; fi
